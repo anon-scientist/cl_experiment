@@ -12,6 +12,7 @@ class Command_Line_Parser(object):
     # however, it does not really parse the cmd line, just identifies
     # parameter name strings that start with --, and adds all strings
     # until the next -- string as arguments
+    # also, it returns a dict object
     def parse_args(self):
         unknown = self.command_line_parameter_list
         unknownDict = {}

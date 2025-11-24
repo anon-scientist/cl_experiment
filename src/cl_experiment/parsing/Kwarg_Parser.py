@@ -19,6 +19,12 @@ class Kwarg_Parser(object):
         self.prefix = prefix
         self.help_str = ''
 
+        class Namespace(object):
+          pass ;
+
+        self.cfg = Namespace() ;
+        self.unparsed = Namespace() ;
+
 
     def convert(self, op, obj):
         ''' Applies op to convert the type of object. If object is a list, conversion is element-wise. '''
@@ -30,12 +36,6 @@ class Kwarg_Parser(object):
         ''' Return all collected arguments as a dict. '''
         return self.kwargs
     
-    def parse_known_args(self):
-        ''' Return all collected arguments as a SimpleNamespace'''
-        config = SimpleNamespace(**self.kwargs)
-        unparsed = []
-        return config, unparsed
-
     @staticmethod
     def make_list(x):
       if type(x) == type([]):
@@ -68,7 +68,16 @@ class Kwarg_Parser(object):
 
         if choices and param_value not in choices:  raise Exception(f'Invalid choice: {arg_name}={param_value} not in {choices}') # should choices be possible, then check if is included.
         # NOTE: is this a risk?
-        self.kwargs[arg_name] = param_value                                 # collect all parameter in self.kwargs even the parameter is not given
+        #self.kwargs[arg_name] = param_value                                 # collect all parameter in self.kwargs even the parameter is not given
 
         self.help_str += f'\n{help}'
+        setattr(self.cfg, arg_name, param_value) ;
         return param_value
+
+    # dummy method to emulate argparse bwhavior
+    def parse_args(self):
+      return self.cfg ;
+
+    # dummy method to emulate argparse bwhavior
+    def parse_known_args(self):
+      return self.cfg, self.unparsed ;

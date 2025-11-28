@@ -6,4 +6,4 @@ reproducibility, and ease of integration with the RL framework.
 
 ## Related Repositories
 * [**CRoSS** - Entry Repository](https://github.com/anon-scientist/continual-robotic-simulation-suite/)
-* [ICRL - RL-Framework Repository](https://github.com/anon-scientist/icrl/)
+* [ICRL - RL-Framework Repository](https://github.com/anon-scientist/cross-icrl/)
